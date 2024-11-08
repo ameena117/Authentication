@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "GetUsers";
+}
+
+<h1>Users</h1>
+
+<a type="button" class="btn btn-outline-primary btn-sm" asp-action="GetUsers" asp-controller="Users">Get All Users</a>
+<a type="button" class="btn btn-outline-success btn-sm" asp-action="GetActiveUsers" asp-controller="Users">Get Active Users</a>
+<a type="button" class="btn btn-outline-secondary btn-sm" asp-action="GetNotActiveUsers" asp-controller="Users">Get Not Active Users</a>
+
+<table class="table table-hover">
+    <thead>
+    <th>
+        User Name
+    </th>
+    <th>
+        E-mail
+    </th>
+    <th>
+        Is Active
+    </th>
+    <th>
+        Created At
+    </th>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.UserName</td>
+                <td>@u.Email</td>
+                <td><a asp-action="ChangeStatus" asp-controller="Users" asp-route-id="@u.Id" class="btn @(u.IsActive? "btn-success" : "btn-secondary")">@(u.IsActive ? "Active" : "Not Active")</a></td>
+                <td>@u.CreatedAt</td>
+            </tr>
+        }
+    </tbody>
